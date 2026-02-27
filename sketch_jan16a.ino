@@ -195,10 +195,12 @@ void loop() {
   
   // Automatic watering example
   if (autoMode) {
-    if (moisture < moistureThreshold) {
+    if (!pumpOn && moisture < moistureThreshold) {
       pumpOn = true;
-    } else {
+      Serial.println("Pump activated automatically");
+    } else if (pumpOn) {
       pumpOn = false;
+      Serial.println("Pump deactivated automatically");
     }
 
     if (light < lightThreshold) {
@@ -250,21 +252,27 @@ void loop() {
   else if (strstr(req, "GET /set")) {
     if (strstr(req, "pump=on")) {
       pumpOn = true;
+      Serial.println("Pump Activated");
     }
     if (strstr(req, "pump=off")) {
       pumpOn = false;
+      Serial.println("Pump Deactivated");
     }
     if (strstr(req, "light=on")) {
       lightOn = true;
+      Serial.println("Light Activated");
     }
     if (strstr(req, "light=off")) {
       lightOn = false;
+      Serial.println("Light Deactivated");
     }
     if (strstr(req, "mode=auto")) {
       autoMode = true;
+      Serial.println("Automatic mode Activated");
     }
     if (strstr(req, "mode=manual")) {
       autoMode = false;
+      Serial.println("Automatic mode Deactivated");
     }
     
     // Example: threshold
