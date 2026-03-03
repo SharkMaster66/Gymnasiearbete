@@ -203,9 +203,10 @@ void loop() {
       Serial.println("Pump deactivated automatically");
     }
 
-    if (light < lightThreshold) {
+    if (!lightOn && light < lightThreshold - 20) {
       lightOn = true;
-    } else {
+    }
+    else if (lightOn && light > lightThreshold + 20) {
       lightOn = false;
     }
   }
